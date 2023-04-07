@@ -4,36 +4,42 @@ import { ColorContext } from '@/context/ColorContext';
 
 const InputAtom = (props: any) => {
 
-    const { grey001, grey002, grey003 } = useContext(ColorContext)
+  const color = useContext(ColorContext)
 
-    return (
-        <Input
-            onChange={props.function}
+  return (
+    <Input
+      onChange={props.function}
 
-            placeholder={props.placeholder}
-            _placeholder={{
-                color: grey002,
-                fontWeight: 500
-            }}
+      placeholder={props.placeholder}
+      _placeholder={{
+        color: color.gray100
+      }}
 
-            type={'text'}
-            fontWeight={500}
-            color={grey001}
+      type={'text'}
+      fontWeight={500}
+      fontSize={'16px'}
+      lineHeight={'20px'}
+      letterSpacing={'0.02em'}
+      color={color.gray500}
 
-            h={'60px'}
-            paddingLeft={'26px'}
+      h={'60px'}
+      padding={'20px 26px 20px 26px'}
 
-            borderRadius={'none'}
-            borderColor={'transparent'}
-            borderBottomColor={grey002}
-            borderBottomWidth={'2px'}
+      borderRadius={'none'}
+      borderColor={'transparent'}
+      borderBottom={`2px solid ${color.gray100}`}
 
-            _hover={{
-                borderColor: 'transparent',
-                borderBottomColor: grey003
-            }}
-        />
-    )
+      _hover={{
+        borderColor: 'transparent',
+        borderBottomColor: color.gray200
+      }}
+
+      _focusVisible={{
+        borderColor: 'none',
+        borderBottomColor: color.primary300
+      }}
+    />
+  )
 }
 
 export default InputAtom;

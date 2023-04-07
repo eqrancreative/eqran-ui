@@ -4,26 +4,42 @@ import { ColorContext } from "@/context/ColorContext";
 
 const RadioAtom = (props: any) => {
 
-    const { grey003 } = useContext(ColorContext)
+  const color = useContext(ColorContext)
 
-    return (
-        <Radio
-            value={props.value}
-            borderColor={grey003}
-            borderWidth={'2px'}
+  return (
+    <Radio
+      size={'lg'}
 
-            fontWeight={'500'}
-            color={grey003}
-        >
-            <Text
-                fontWeight={'500'}
-                color={grey003}
-                lineHeight={'20px'}
-            >
-                {props.title}
-            </Text>
-        </Radio>
-    )
+      value={props.value}
+      borderColor={color.gray200}
+      borderWidth={'2px'}
+
+      fontWeight={'500'}
+      color={color.gray200}
+
+      _notFirst={{
+        mt: '0.0rem'
+      }}
+
+      _checked={{
+        border: `6px solid ${color.primary300}`
+      }}
+
+      _hover={{
+        color: color.gray300
+      }}
+    >
+      <Text
+        fontWeight={'500'}
+        fontSize={'16px'}
+        lineHeight={'20px'}
+        letterSpacing={'0.02em'}
+        color={color.gray300}
+      >
+        {props.title}
+      </Text>
+    </Radio>
+  )
 }
 
 export default RadioAtom;

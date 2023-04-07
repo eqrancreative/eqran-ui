@@ -8,6 +8,15 @@ const theme = extendTheme({
                 control: {
                     borderRadius: '4px',
                     borderColor: '#8F96A3',
+                    _hover: {
+                        borderColor: '#757C8A'
+                    },
+                    _checked: {
+                        bg: 'transparent',
+                        _hover: {
+                            bg: 'transparent'
+                        }
+                    }
                 },
             }
         },

@@ -1,35 +1,54 @@
-import { Button, Text } from "@chakra-ui/react";
-import { useContext } from "react";
-import { ColorContext } from "@/context/ColorContext";
+import { Button, Text, Image } from "@chakra-ui/react";
+import { useState } from "react";
+
+const ArrowIcon = (props: any) => {
+    return (
+        <Image
+            src={'assets/icons/arrow.svg'}
+            alt={'Checked icon'}
+
+            display={props.display === true && props.iconView === true ? 'visible' : 'none'}
+            transition={'display 0.8s ease-in-out'}
+        />
+    )
+}
 
 const ButtonAtom = (props: any) => {
 
-    const color = useContext(ColorContext)
+    const [iconView, setIconView] = useState(false);
 
     return (
-        <Button
-            size='lg'
+        <>
+            <Button
+                width={props.style.width}
+                height={props.style.height}
 
-            w={'100%'}
-            borderRadius={'50px'}
+                borderRadius={'50px'}
+                padding={'16px'}
+                gap={'4px'}
 
-            color={'#F1F0F5'}
-            backgroundColor={color.black002}
+                color={props.style.color}
+                backgroundColor={props.style.backgroundColor}
 
-            onClick={props.action}
+                onClick={props.action}
 
-            _hover={{
-                backgroundColor: color.blue001
-            }}
-        >
-            <Text
-                fontSize={'14px'}
-                fontWeight={'700'}
-                lineHeight={'18px'}
+                onMouseEnter={() => setIconView(true)}
+                onMouseLeave={() => setIconView(false)}
+
+                _hover={props.style._hover}
             >
-                {props.title}
-            </Text>
-        </Button >
+                <Text
+                    fontSize={'14px'}
+                    fontWeight={'700'}
+                    lineHeight={'18px'}
+                    letterSpacing={'0.06em'}
+                >
+                    {props.title}
+                </Text>
+
+                <ArrowIcon display={iconView} iconView={props.iconView} />
+            </Button >
+        </>
     )
 }
 

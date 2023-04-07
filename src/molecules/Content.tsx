@@ -1,10 +1,10 @@
 import { Box, FormLabel } from '@chakra-ui/react';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { ColorContext } from '@/context/ColorContext';
 
 const Content = (props: any) => {
 
-    const { grey001 } = useContext(ColorContext)
+    const { gray500 } = useContext(ColorContext)
 
     return (
         <Box
@@ -14,13 +14,16 @@ const Content = (props: any) => {
 
             <FormLabel
                 fontSize={'16px'}
-                fontWeight={'700'}
-                color={grey001}
+                fontWeight={'600'}
+                lineHeight={'20px'}
+                letterSpacing={'0.02em'}
+                color={gray500}
                 mb={props.isInput === false ? '16px' : '8px'}
 
             >
                 {props.label}
             </FormLabel>
+
             {props.child}
 
         </Box>
