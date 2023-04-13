@@ -7,7 +7,7 @@ const theme = extendTheme({
             baseStyle: {
                 control: {
                     borderRadius: '4px',
-                    borderColor: '#8F96A3',
+                    borderColor: '#A9AFBC',
                     _hover: {
                         borderColor: '#757C8A'
                     },

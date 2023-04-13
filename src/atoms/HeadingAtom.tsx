@@ -8,6 +8,7 @@ const H1 = (props: any) => {
             lineHeight={'48px'}
             letterSpacing={'0.02em'}
             color={props.color}
+            width={props.width}
         >
             {props.text}
         </Text>
@@ -22,6 +23,7 @@ const H2 = (props: any) => {
             lineHeight={'40px'}
             letterSpacing={'0.02em'}
             color={props.color}
+            width={props.width}
         >
             {props.text}
         </Text>

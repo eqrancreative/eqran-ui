@@ -23,14 +23,19 @@ const CheckboxAtom = (props: any) => {
 
     return (
         <Checkbox
-            fontWeight={'500'}
-            color={color.gray300}
-
             onChange={handleCheck}
             isChecked={checked}
             icon={checked ? <CheckIcon /> : <CheckIcon disable={true} />}
-
             value={props.value}
+
+            display={'flex'}
+            flexDirection={'row'}
+            alignItems={'center'}
+            p={'0px'}
+
+            fontWeight={'500'}
+            color={color.gray200}
+            h={'20px'}
 
             _first={{
                 mt: 0

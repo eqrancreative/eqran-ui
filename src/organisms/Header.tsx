@@ -1,6 +1,6 @@
 import { ColorContext } from '@/context/ColorContext';
 import { Box, Flex, Image, Link } from '@chakra-ui/react'
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Text } from '@chakra-ui/react';
 import { ThemeContext } from '@emotion/react';
 import ButtonAtom from '@/atoms/ButtonAtom';
@@ -8,50 +8,58 @@ import ButtonAtom from '@/atoms/ButtonAtom';
 const Section = (props: any) => {
 
     const color = useContext(ColorContext)
-    const [blur, setBlur] = useState(false);
 
-    const handleMouseEnter = () => {
+    const [focus, setFocus] = useState('');
+    const [blur, setBlur] = useState<string>();
+    const [isHovered, setIsHovered] = useState(false);
 
+    function handleMouseEnter() {
+        setIsHovered(true)
+        setFocus(props.index)
     };
 
-    const handleMouseLeave = () => {
-        setBlur(false);
+    function handleMouseLeave() {
+        setIsHovered(false)
+        setFocus('')
     };
+
+    // function handleEffect() {
+    //     if (props.index == focus) {
+    //         // console.log('parou no if')
+    //         return 'blur-none'
+    //     } else if (props.index != focus) {
+    //         // console.log('parou no else if')
+    //         return 'blur-sm'
+    //     } else {
+    //         return 'blur-none'
+    //     }
+    // }
+
+    useEffect(() => {
+        // setFocus(props.index)
+        // console.log('Focus:', focus)
+        // console.log('Blur:', blur)
+    }, [focus, props.index])
 
 
     return (
         // TODO: Adicionar o efeito de blur às outras no hover de uma seção
-        <Box
-        //   filter="blur(5px)"
-        //   transition="filter 0.3s ease-in-out"
-        //   _hover={{ filter: "none" }}
-
-        //  filter={`blur(${blur ? "5px" : "0px"})`}
-        //  transition="filter 0.3s ease-in-out"
-        //  _hover={{ filter: "none" }}
-        >
-            <Link
+        <>
+            <a
                 href={props.href}
-
-                color={props.mode === 'light' ?
-                    color.gray900 : color.gray50}
-
-                fontWeight={'500'}
-                fontSize={'16px'}
-                lineHeight={'20px'}
-
+                className={`font-medium text-base leading-5 transition-all cursor-pointer hover:blur-none`}
+                style={{
+                    color: props.mode === 'home' || props.mode === 'dark' ? color.gray50 : color.gray900
+                }}
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
-
-                filter={`blur(${blur ? "5px" : "0px"})`}
-                transition="filter 0.3s ease-in-out"
-            // _hover={{ filter: "none" }}
             >
                 {props.name}
-            </Link>
-        </Box>
+            </a>
+        </>
     )
 }
+
 
 const Header = (props: any) => {
 
@@ -59,13 +67,15 @@ const Header = (props: any) => {
 
     return (
         <Flex
-            h={'116px'}
+            id={'#header'}
 
-            direction={'row'}
+            flexDirection={'row'}
             justifyContent={'space-between'}
             alignItems={'center'}
             p={'32px 72px'}
-            gap={'590px'}
+            // gap={'590px'}
+
+            h={'116px'}
 
             bg={props.mode === 'light' ? color.gray50
                 : props.mode === 'home' ? color.gray900 : color.gray600}
@@ -75,8 +85,6 @@ const Header = (props: any) => {
                     props.mode === 'light' ? 'dark-logo.svg' : 'light-logo.svg'
                 }
                 alt={'Eqran Creative Home'}
-
-            // marginLeft={'72px'}
             />
 
             <Flex
@@ -84,24 +92,14 @@ const Header = (props: any) => {
                 justifyContent={'space-between'}
                 alignItems={'center'}
                 p={0}
-                gap={'80px'}
+                gap={'56px'}
             >
-                <Flex
-                    w={'311px'} height={'52px'}
-
-                    direction={'row'}
-                    justifyContent={'space-between'}
-                    alignItems={'center'}
-                    gap={'24px'}
-
-                    padding={'0px'}
-                // marginRight={'56px'}
-                >
-                    <Section href={''} name={'Home'} mode={props.mode} />
-                    <Section href={''} name={'Quem Somos'} mode={props.mode} />
-                    <Section href={''} name={'Projetos'} mode={props.mode} />
-                    <Section href={''} name={'Lab'} mode={props.mode} />
-                </Flex>
+                <div className='flex flex-row justify-between items-start p-0 transition-all w-311'>
+                    <Section index={'home'} href={'/home'} name={'Home'} mode={props.mode} />
+                    <Section index={'company'} href={'/company'} name={'Quem Somos'} mode={props.mode} />
+                    <Section index={'projects'} href={'/projects'} name={'Projetos'} mode={props.mode} />
+                    <Section index={'lab'} href={'/lab'} name={'Lab'} mode={props.mode} />
+                </div>
 
                 <ButtonAtom
                     title={'INICIAR PROJETO'}
