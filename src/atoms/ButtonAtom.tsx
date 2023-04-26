@@ -1,53 +1,48 @@
-import { Button, Text, Image } from "@chakra-ui/react";
-import { useState } from "react";
+import { ColorContext } from "@/context/ColorContext";
+import { useContext, useState } from "react";
+import TextAtom from "./TextAtom";
 
-const ArrowIcon = (props: any) => {
-    return (
-        <Image
-            src={'assets/icons/arrow.svg'}
-            alt={'Checked icon'}
 
-            display={props.display === true && props.iconView === true ? 'visible' : 'none'}
-            transition={'display 0.8s ease-in-out'}
-        />
-    )
-}
+const ButtonAtom = ({ title, action, className, rightIcon, leftIcon }: any) => {
 
-const ButtonAtom = (props: any) => {
+    const color = useContext(ColorContext)
+    const [isHover, setIsHover] = useState(false);
 
-    const [iconView, setIconView] = useState(false);
+    function handleMouseEnter() {
+        setIsHover(true)
+    }
+
+    function handleMouseLeave() {
+        setIsHover(false)
+    }
+
+    function translateIcon() {
+        return rightIcon ? 'hover:-translate-x-[4px]' : leftIcon ? 'hover:translate-x-[4px]' : ''
+    }
 
     return (
         <>
-            <Button
-                width={props.style.width}
-                height={props.style.height}
-
-                borderRadius={'50px'}
-                padding={'16px'}
-                gap={'4px'}
-
-                color={props.style.color}
-                backgroundColor={props.style.backgroundColor}
-
-                onClick={props.action}
-
-                onMouseEnter={() => setIconView(true)}
-                onMouseLeave={() => setIconView(false)}
-
-                _hover={props.style._hover}
+            {/* TODO: Corrigir transição da aparição dos ícones */}
+            <button
+                className={`flex flex-row justify-center items-center rounded-full h-12 ${className} transition-all duration-[800ms]`}
+                onClick={action}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
             >
-                <Text
-                    fontSize={'14px'}
-                    fontWeight={'700'}
-                    lineHeight={'18px'}
-                    letterSpacing={'0.06em'}
-                >
-                    {props.title}
-                </Text>
+                <div className={`relative w-0 left-[32px] transition-all duration-[800ms] ${isHover && leftIcon ? 'opacity-100' : 'opacity-0'}`}>
+                    {leftIcon}
+                </div>
 
-                <ArrowIcon display={iconView} iconView={props.iconView} />
-            </Button >
+                <TextAtom
+                    text={title}
+                    type={3}
+                    className={`flex justify-center items-center font-bold w-full h-full transition-all duration-[800ms] ${translateIcon()}`}
+                />
+
+                <div className={`relative w-0 -left-[46px] transition-all duration-[800ms] ${isHover && rightIcon ? 'opacity-100' : 'opacity-0'}`}>
+                    {rightIcon}
+                </div>
+            </button >
         </>
     )
 }

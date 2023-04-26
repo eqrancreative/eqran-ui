@@ -4,6 +4,7 @@ import { useContext, useEffect, useState } from 'react';
 import { Text } from '@chakra-ui/react';
 import { ThemeContext } from '@emotion/react';
 import ButtonAtom from '@/atoms/ButtonAtom';
+import { ArrowIcon } from '@/utils/icons';
 
 const Section = (props: any) => {
 
@@ -23,22 +24,18 @@ const Section = (props: any) => {
         setFocus('')
     };
 
-    // function handleEffect() {
-    //     if (props.index == focus) {
-    //         // console.log('parou no if')
-    //         return 'blur-none'
-    //     } else if (props.index != focus) {
-    //         // console.log('parou no else if')
-    //         return 'blur-sm'
-    //     } else {
-    //         return 'blur-none'
-    //     }
-    // }
+    function handleEffect() {
+        if (props.index == focus) {
+            // console.log('parou no if')
+            return 'blur-sm'
+        } else if (props.index != focus) {
+            // console.log('parou no else if')
+            return 'blur-sm'
+        }
+    }
 
     useEffect(() => {
-        // setFocus(props.index)
-        // console.log('Focus:', focus)
-        // console.log('Blur:', blur)
+
     }, [focus, props.index])
 
 
@@ -47,7 +44,7 @@ const Section = (props: any) => {
         <>
             <a
                 href={props.href}
-                className={`font-medium text-base leading-5 transition-all cursor-pointer hover:blur-none`}
+                className={`font-medium text-base leading-5 transition-all cursor-pointer hover:${handleEffect}`}
                 style={{
                     color: props.mode === 'home' || props.mode === 'dark' ? color.gray50 : color.gray900
                 }}
@@ -100,22 +97,17 @@ const Header = (props: any) => {
                     <Section index={'projects'} href={'/projects'} name={'Projetos'} mode={props.mode} />
                     <Section index={'lab'} href={'/lab'} name={'Lab'} mode={props.mode} />
                 </div>
-
                 <ButtonAtom
                     title={'INICIAR PROJETO'}
-                    style={{
-                        width: '228px',
-                        height: '48px',
-
-                        color: color.gray700,
-                        backgroundColor: color.primary300,
-
-                        _hover: {
-                            backgroundColor: color.primary400,
-                            color: color.primary700,
-                        }
-                    }}
-                    iconView={true}
+                    className={'w-[228px] text-primary-700 bg-primary-300 hover:bg-primary-400'}
+                    rightIcon={
+                        <ArrowIcon
+                            mode={'sm'}
+                            color={color.primary700}
+                            stroke={'2'}
+                            width={'13px'} height={'10px'}
+                        />
+                    }
                 />
             </Flex>
         </Flex >

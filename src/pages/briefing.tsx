@@ -1,6 +1,6 @@
 import { RadioGroup, Stack, Container, Flex, Box, Text, useToast, background } from "@chakra-ui/react"
 import { useState, useEffect, useRef, useContext, FormEvent, ChangeEvent } from 'react';
-import { InputAtom, CheckboxAtom, ButtonAtom, RadioAtom, TextAreaAtom } from '../atoms/_index'
+import { InputAtom, CheckboxAtom, ButtonAtom, RadioAtom, TextAreaAtom } from '../atoms/index'
 import { ColorContext } from "@/context/ColorContext";
 import Content from "../molecules/Content";
 import emailjs from "@emailjs/browser"
@@ -222,17 +222,7 @@ const ProposalForm = (props: any) => {
           <ButtonAtom
             title={'SOLICITAR PROPOSTA'}
             action={sendEmail}
-            style={{
-              width: '100%',
-              height: '48px',
-
-              color: color.gray50,
-              backgroundColor: color.gray800,
-
-              _hover: {
-                backgroundColor: color.gray900,
-              }
-            }}
+            className={'w-full text-gray-50 bg-gray-800 hover:bg-gray-900'}
           />
         </Flex>
       </Flex>

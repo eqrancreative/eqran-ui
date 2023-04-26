@@ -1,47 +1,10 @@
-import TextAtom from '@/atoms/TextAtom';
-import ContactButtonAtom from '@/atoms/ContactButtonAtom';
+import ContactCardMolecule from '@/molecules/ContactCardMolecule';
 import { ColorContext } from '@/context/ColorContext';
 import { Flex, Image, Link, Text } from '@chakra-ui/react'
 import { useContext, useState } from 'react';
-import { H2 } from '../atoms/HeadingAtom'
+import { HeadingAtom, TextAtom } from '../atoms'
+import { SocialMediaIcon, WhatsAppIcon, EmailIcon, ArrowIcon } from '@/utils/icons';
 
-
-const MediaSocialIcon = (props: any) => {
-
-    const [isHover, setIsHover] = useState(false);
-
-    function handleOnMouseEnter() {
-        setIsHover(true)
-    }
-
-    function handleOnMouseLeave() {
-        setIsHover(false)
-    }
-
-    return (
-        <>
-            <Link
-                href={props.link}
-            >
-                <Image
-                    src={isHover ? props.iconHover : props.icon}
-                    alt={props.alt}
-
-                    w={'32px'} h={'32px'}
-
-                    // transition={'0.3s ease-in-out'}
-
-                    _hover={{
-                        transition: '0.3s ease-in-out'
-                    }}
-
-                    onMouseEnter={handleOnMouseEnter}
-                    onMouseLeave={handleOnMouseLeave}
-                />
-            </Link>
-        </>
-    )
-}
 
 const FooterOrganism = (props: any) => {
 
@@ -95,29 +58,30 @@ const FooterOrganism = (props: any) => {
                         p={'0px'}
                         gap={'22px'}
                     >
-                        <H2
+                        <HeadingAtom
                             text={'Está pronto para começarmos juntos?'}
-                            color={color.gray25}
+                            type={2}
+                            className={'font-medium text-gray-25'}
                             width={'443px'}
                         />
                         <TextAtom
-                            type={1}
                             text={
                                 'Trabalharemos em equipe, compartilhando ideias e habilidades para criar um projeto excepcional.'
                             }
-                            color={'text-gray-500'}
-                            width={'w-476'}
+                            type={1}
+                            className={'text-gray-500'}
+                            width={'476px'}
                         />
                     </Flex>
                     <Flex gap={'32px'}>
-                        <ContactButtonAtom
-                            icon={'/assets/icons/whatsapp.svg'}
+                        <ContactCardMolecule
+                            icon={<WhatsAppIcon color={color.gray500} />}
                             label={'Fale com a gente'}
                             description={'+55 (81) 9 8181-8181'}
                             link={''}
                         />
-                        <ContactButtonAtom
-                            icon={'/assets/icons/email.svg'}
+                        <ContactCardMolecule
+                            icon={<EmailIcon color={color.gray500} />}
                             label={'Ou mande um e-mail'}
                             description={'eqrancreative@gmail.com'}
                             link={'mailto:eqrancreative@gmail.com'}
@@ -181,21 +145,15 @@ const FooterOrganism = (props: any) => {
                         alignItems={'inherit'}
                         gap={'23px'}
                     >
-                        <MediaSocialIcon
-                            link={''}
-                            icon={'/assets/icons/instagram.svg'}
-                            iconHover={'/assets/icons/hover/instagram.hover.svg'}
-                        />
-                        <MediaSocialIcon
-                            link={''}
-                            icon={'/assets/icons/linkedin.svg'}
-                            iconHover={'/assets/icons/hover/linkedin.hover.svg'}
-                        />
-                        <MediaSocialIcon
-                            link={''}
-                            icon={'/assets/icons/dribble.svg'}
-                            iconHover={'/assets/icons/hover/dribble.hover.svg'}
-                        />
+                        <Link href={''} target={'_blank'}>
+                            <SocialMediaIcon media={'instagram'} color={color.gray50} hover={color.instagram} />
+                        </Link>
+                        <Link href={''} target={'_blank'}>
+                            <SocialMediaIcon media={'linkedin'} color={color.gray50} hover={color.linkedin} />
+                        </Link>
+                        <Link href={''} target={'_blank'}>
+                            <SocialMediaIcon media={'dribbble'} color={color.gray50} hover={color.dribble} />
+                        </Link>
                     </Flex>
                 </Flex>
                 <Link
@@ -220,10 +178,7 @@ const FooterOrganism = (props: any) => {
                     >
                         Voltar ao topo
                     </Text>
-                    <Image
-                        src={'/assets/icons/arrow-up.svg'}
-                        alt={'Atalho para voltar ao topo da página.'}
-                    />
+                    <ArrowIcon mode={'up'} stroke={'1.5'} color={color.gray400} width={'16px'} height={'16px'} />
                 </Link>
             </Flex>
         </Flex>

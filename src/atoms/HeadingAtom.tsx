@@ -1,50 +1,30 @@
-import { Text } from '@chakra-ui/react'
+import { useEffect, useState } from 'react';
 
-const H1 = (props: any) => {
+const HeadingAtom = ({ type, text, width, className }: any) => {
+
+    const [props, setProps] = useState<string>()
+
+    useEffect(() => {
+        switch (type) {
+            case 1:
+                setProps('text-h1 leading-12');
+                break;
+            case 2:
+                setProps('text-h2 leading-10');
+                break;
+            case 3:
+                setProps('text-h3 leading-6');
+                break;
+            default:
+                setProps('font-normal text-h1 leading-12')
+        }
+    }, [type])
+
     return (
-        <Text
-            fontWeight={400}
-            fontSize={'40px'}
-            lineHeight={'48px'}
-            letterSpacing={'0.02em'}
-            color={props.color}
-            width={props.width}
-        >
-            {props.text}
-        </Text>
+        <h1 className={`${props} ${className} tracking-default`} style={{ width: width }}>
+            {text}
+        </h1>
     )
 }
 
-const H2 = (props: any) => {
-    return (
-        <Text
-            fontWeight={500}
-            fontSize={'32px'}
-            lineHeight={'40px'}
-            letterSpacing={'0.02em'}
-            color={props.color}
-            width={props.width}
-        >
-            {props.text}
-        </Text>
-    )
-}
-
-const H3 = (props: any) => {
-    return (
-        <Text
-            fontWeight={props.isSemibold ? 600 : 500}
-            fontSize={'32px'}
-            lineHeight={'40px'}
-            letterSpacing={'0.02em'}
-            color={props.color}
-        >
-            {props.text}
-        </Text>
-    )
-}
-
-
-export {
-    H1, H2, H3
-}
+export default HeadingAtom;
